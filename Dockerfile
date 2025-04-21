@@ -6,7 +6,7 @@ FROM python:3.6-slim
 WORKDIR /usr/src/app
 
 # Copy the dependencies file to the working directory
-COPY requirements.txt .
+COPY requirements.txt ./
 
 # Install any needed packages specified in requirements.txt
 # --no-cache-dir: Disables the cache to keep the image size smaller
