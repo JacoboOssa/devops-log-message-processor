@@ -1,30 +1,27 @@
 # Use an official Python runtime as a parent image
-# Using python:3.6-slim as specified in the README
-FROM python:3.6-slim
+FROM python:3.9-slim
+# Or python:3.6-slim if you must stick to the older version
 
-# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the dependencies file to the working directory
+# Install necessary packages (if any beyond Python standard lib + requirements)
+# RUN apt-get update && apt-get install -y --no-install-recommends some-package && rm -rf /var/lib/apt/lists/*
+
+# Copy the requirements file into the container
 COPY requirements.txt ./
 
 # Install any needed packages specified in requirements.txt
-# --no-cache-dir: Disables the cache to keep the image size smaller
-# --trusted-host pypi.python.org: Sometimes needed in specific network environments
+# --no-cache-dir prevents caching which saves space
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the current directory contents into the container at /app
+# Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
-# Make port 6379 available to the world outside this container (if needed, though Redis client usually doesn't need exposure)
-# This is more illustrative; the app connects *out* to Redis.
-
+# Make port 80 available to the world outside this container (if needed, log-processor doesn't seem to expose one)
 EXPOSE 80
 
-# Define environment variables placeholders (will be set during runtime, e.g., by Kubernetes)
-# ENV REDIS_HOST=redis
-# ENV REDIS_PORT=6379
-# ENV REDIS_CHANNEL=log_channel
+# Define environment variables (will be overridden by K8s)
+# ENV REDIS_HOST=redis-placeholder REDIS_PORT=6379 REDIS_CHANNEL=log_channel
 
 # Run main.py when the container launches
 CMD ["python3", "main.py"]
