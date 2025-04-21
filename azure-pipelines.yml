@@ -17,8 +17,8 @@ variables:
   dockerRegistryServiceConnection: 'YourACRServiceConnectionName' 
   acrLoginServer: 'ingesoft5-bbfcc8fmg7bvghf9.azurecr.io' # From the image
   imageRepository: 'log-message-processor' # Name for the image in ACR
-  dockerfilePath: '$(Build.SourcesDirectory)/log-message-processor/Dockerfile'
-  buildContextPath: '$(Build.SourcesDirectory)/log-message-processor'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  buildContextPath: '$(Build.SourcesDirectory)'
   tag: '$(Build.BuildId)'
 
 stages:
