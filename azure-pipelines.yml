@@ -4,9 +4,6 @@ trigger:
   branches:
     include:
     - main # Or your default branch
-  paths:
-    include:
-    - log-message-processor/* # Trigger only if files in log-message-processor folder change
 
 resources:
 - repo: self
