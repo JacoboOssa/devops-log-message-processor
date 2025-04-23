@@ -17,11 +17,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
-# Make port 80 available to the world outside this container (if needed, log-processor doesn't seem to expose one)
-EXPOSE 80
-
-# Define environment variables (will be overridden by K8s)
-# ENV REDIS_HOST=redis-placeholder REDIS_PORT=6379 REDIS_CHANNEL=log_channel
-
 # Run main.py when the container launches
 CMD ["python3", "main.py"]
